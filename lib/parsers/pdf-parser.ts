@@ -177,7 +177,10 @@ function extractField(spec: FieldSpec, lines: OcrLine[]): { value?: number; conf
       const m = line.text.match(pattern)
       if (m) {
         const n = parseFloat(m[1].replace(/,/g, ''))
-        if (!isNaN(n)) return { value: n, confidence: Math.round(line.confidence) }
+        if (!isNaN(n)) {
+          console.log(`[PDF-FIELD] ${spec.key} <- pattern=${pattern} line="${line.text}" value=${n}`)
+          return { value: n, confidence: Math.round(line.confidence) }
+        }
       }
     }
   }
