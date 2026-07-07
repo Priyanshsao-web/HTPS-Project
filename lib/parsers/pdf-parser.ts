@@ -136,7 +136,7 @@ async function ocrPDF(buffer: Buffer): Promise<{ text: string; lines: OcrLine[];
   const parser = new PDFParse({ data: buffer })
   let pages
   try {
-    const shots = await parser.getScreenshot({ imageBuffer: true, imageDataUrl: false, scale: 3 })
+    const shots = await parser.getScreenshot({ imageBuffer: true, imageDataUrl: false, scale: 2 })
     pages = shots.pages
   } finally {
     await parser.destroy()
@@ -153,8 +153,9 @@ async function ocrPDF(buffer: Buffer): Promise<{ text: string; lines: OcrLine[];
   let confSum = 0
   try {
     for (const page of pages) {
+      const pageStart = Date.now()
       const { data } = await worker.recognize(Buffer.from(page.data), {}, { blocks: true, text: true })
-      console.log(`[PDF-OCR] page ${page.pageNumber}/${pages.length}: ${data.text.length} chars, confidence=${data.confidence.toFixed(0)}%`)
+      console.log(`[PDF-OCR] page ${page.pageNumber}/${pages.length}: ${data.text.length} chars, confidence=${data.confidence.toFixed(0)}%, took ${Date.now() - pageStart}ms`)
       text += data.text + '\n'
       confSum += data.confidence
       for (const block of data.blocks || []) {

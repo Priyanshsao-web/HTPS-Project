@@ -5,6 +5,7 @@ import { parsePDF } from "@/lib/parsers/pdf-parser"
 import { getUploadHistory, saveDprUpload } from "@/lib/data"
 
 export const dynamic = "force-dynamic"
+export const maxDuration = 300
 
 export async function POST(req: NextRequest) {
   try {
