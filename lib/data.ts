@@ -290,7 +290,7 @@ function getMockAlerts(): Alert[] {
     {
       id: "alert-1",
       alert_date: new Date().toISOString().split("T")[0],
-      alert_type: "efficiency",
+      alert_type: "heat_rate_spike",
       severity: "high",
       parameter: "Gross Heat Rate",
       current_value: 2540,
@@ -302,7 +302,7 @@ function getMockAlerts(): Alert[] {
     {
       id: "alert-2",
       alert_date: new Date().toISOString().split("T")[0],
-      alert_type: "water",
+      alert_type: "abnormal_water",
       severity: "critical",
       parameter: "DM Water Makeup %",
       current_value: 2.1,
