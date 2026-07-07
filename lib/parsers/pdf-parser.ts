@@ -143,7 +143,11 @@ async function ocrPDF(buffer: Buffer): Promise<{ text: string; lines: OcrLine[];
   }
   console.log(`[PDF-OCR] rendered ${pages.length} page(s), running tesseract`)
 
-  const worker = await createWorker('eng')
+  const worker = await createWorker('eng', 1, {
+    langPath: process.cwd(),
+    cachePath: '/tmp',
+    gzip: false,
+  })
   let text = ''
   const lines: OcrLine[] = []
   let confSum = 0
